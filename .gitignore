@@ -2,3 +2,6 @@
 *.code-workspace
 input.txt
 .vscode/launch.json
+/dist
+/build
+groundstation.spec

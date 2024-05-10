@@ -208,9 +208,10 @@ def main():
     axs[0, 1].set_ylim(-40, 60)
     axs[1, 1].set_ylim(-100, 4000)
     axs[2, 1].set_ylim(0, 360)
+    plt.style.use('ggplot')
     fig.canvas.mpl_connect('close_event', quit_gracefully,)
     update = FuncAnimation(
-        fig, animate, fargs=(ser, axs, fig), interval=100, save_count=20, blit=True
+        fig, animate, fargs=(ser, axs, fig), interval=50, save_count=20, blit=True
     )
     plt.show()
 
