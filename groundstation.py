@@ -2,10 +2,8 @@ import serial
 import threading
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from matplotlib.widgets import Button
 import time
 import re
-import signal
 ser = None
 found = False
 data = [[] for _ in range(10)]
@@ -17,7 +15,7 @@ def listen_input(ser):
     while True:
         response = ser.readline().decode().strip()
         running = pattern.match(response)
-        if response == "STARTING" or running != None:
+        if response == "STARTING" or running is not None:
             found = True
             time.sleep(0.5)
             print("Found connection!")
@@ -186,14 +184,6 @@ def animate(frame, ser, axs, fig):
     fig.canvas.draw()
     return lines + text
 
-def quit_gracefully(event):
-    global ser
-    print("Closing Serial Connection...")
-    ser.close()
-    ser.open()
-    ser.write(b"STOP\n")
-    exit(0)
-
 def main():
     global ser
     ser = connect_serial()
@@ -209,7 +199,6 @@ def main():
     axs[1, 1].set_ylim(-100, 4000)
     axs[2, 1].set_ylim(0, 360)
     plt.style.use('ggplot')
-    fig.canvas.mpl_connect('close_event', quit_gracefully,)
     update = FuncAnimation(
         fig, animate, fargs=(ser, axs, fig), interval=50, save_count=20, blit=True
     )
