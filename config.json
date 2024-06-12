@@ -1,5 +1,0 @@
-{
-    "update_rate": 1,
-    "serial_port": "/dev/tty.usbserial-3",
-    "baud_rate": 115200
-}
